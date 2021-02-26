@@ -19,5 +19,6 @@ void genericECUWrite(int commandId, uint16_t ecuAddress, FlexCAN_T4<CAN1, RX_SIZ
 void ThrottleCmd(uint8_t throttlePosition, uint16_t ecuAddress, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>* can) {
     ecu_message.buf[0] = throttlePosition;
     ecu_message.buf[1] = 0;
+    ecu_message.len = 2;
     genericECUWrite(0x06, ecuAddress, can);
 }
