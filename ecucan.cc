@@ -2,7 +2,7 @@
 
 CAN_message_t ecu_message;
 
-void printRaw(CAN_message_t ecu_message) {
+void printRawEcu(CAN_message_t ecu_message) {
     Serial.print(ecu_message.id); Serial.print(" ");
     for (int i = 0; i < 6; i++) {
             Serial.print(ecu_message.buf[i], HEX); Serial.print(" ");
@@ -12,7 +12,7 @@ void printRaw(CAN_message_t ecu_message) {
 
 void genericECUWrite(int commandId, uint16_t ecuAddress, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>* can) {
     ecu_message.flags.extended = true;
-    ecu_message.id = 0x09000000 | (commandId << 6) | ecuAddress;
+    ecu_message.id = 0x09000000 | (commandId << 16) | ecuAddress;
     can->write(ecu_message);
 }
 
